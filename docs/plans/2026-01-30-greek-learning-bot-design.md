@@ -125,11 +125,21 @@ CREATE TABLE words (
     id INTEGER PRIMARY KEY AUTOINCREMENT,
     greek TEXT NOT NULL,
     russian TEXT NOT NULL,
-    type TEXT NOT NULL CHECK(type IN ('word', 'phrase')),
+    word_type TEXT NOT NULL CHECK(word_type IN ('noun', 'verb', 'adjective', 'adverb', 'pronoun', 'preposition', 'conjunction', 'phrase')),
     created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     created_by INTEGER  -- Telegram user_id админа
 );
 ```
+
+**Типы слов (word_type):**
+- `noun` - существительное (οὐσιαστικό)
+- `verb` - глагол (ῥῆμα)
+- `adjective` - прилагательное (ἐπίθετο)
+- `adverb` - наречие (ἐπίρρημα)
+- `pronoun` - местоимение (ἀντωνυμία)
+- `preposition` - предлог (πρόθεση)
+- `conjunction` - союз (σύνδεσμος)
+- `phrase` - фраза (фраза)
 
 **Таблица `users`:**
 ```sql
@@ -287,12 +297,15 @@ States: WAITING_GREEK → WAITING_RUSSIAN → WAITING_TYPE → DONE
 
 1. User: /add
 2. Bot: "Введи слово или фразу на греческом:" [State: WAITING_GREEK]
-3. User: "Καλημέρα"
+3. User: "κάνω"
 4. Bot: "Отлично! Теперь введи перевод на русский:" [State: WAITING_RUSSIAN]
-5. User: "Доброе утро"
-6. Bot: "Это слово или фраза?" [Кнопки: Слово | Фраза] [State: WAITING_TYPE]
-7. User: [нажимает "Фраза"]
-8. Bot: "✅ Добавлено! Καλημέρα → Доброе утро (фраза)" [State: DONE]
+5. User: "делать"
+6. Bot: "Выбери тип:" [Кнопки в 2 ряда]
+   Ряд 1: [Существительное] [Глагол] [Прилагательное] [Наречие]
+   Ряд 2: [Местоимение] [Предлог] [Союз] [Фраза]
+   [State: WAITING_TYPE]
+7. User: [нажимает "Глагол"]
+8. Bot: "✅ Добавлено! κάνω → делать (глагол)" [State: DONE]
 ```
 
 **Настройка группового контекста (/setup):**
@@ -314,23 +327,29 @@ States: WAITING_TASK_TYPE → WAITING_INTERVAL → DONE
 
 **Excel (.xlsx):**
 ```
-| Greek      | Russian        | Type   |
-|------------|----------------|--------|
-| κάνω       | делать         | word   |
-| Καλημέρα   | Доброе утро    | phrase |
+| Greek      | Russian        | Type        |
+|------------|----------------|-------------|
+| κάνω       | делать         | verb        |
+| νερό       | вода           | noun        |
+| καλός      | хороший        | adjective   |
+| Καλημέρα   | Доброе утро    | phrase      |
 ```
 
 **CSV (.csv):**
 ```csv
 greek,russian,type
-κάνω,делать,word
+κάνω,делать,verb
+νερό,вода,noun
+καλός,хороший,adjective
 Καλημέρα,Доброе утро,phrase
 ```
 
 **JSON (.json):**
 ```json
 [
-  {"greek": "κάνω", "russian": "делать", "type": "word"},
+  {"greek": "κάνω", "russian": "делать", "type": "verb"},
+  {"greek": "νερό", "russian": "вода", "type": "noun"},
+  {"greek": "καλός", "russian": "хороший", "type": "adjective"},
   {"greek": "Καλημέρα", "russian": "Доброе утро", "type": "phrase"}
 ]
 ```
