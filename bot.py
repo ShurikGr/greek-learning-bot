@@ -12,6 +12,7 @@ from telegram.ext import (
 
 import config
 from database.db import db
+from handlers.quiz import get_quiz_handlers
 
 # Configure logging
 logging.basicConfig(
@@ -61,6 +62,10 @@ def main():
     # Add handlers
     application.add_handler(CommandHandler("start", start_command))
     application.add_handler(CommandHandler("help", help_command))
+
+    # Add quiz handlers
+    for handler in get_quiz_handlers():
+        application.add_handler(handler)
 
     # Start bot
     logger.info("Starting bot...")
