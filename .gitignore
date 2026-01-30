@@ -57,6 +57,12 @@ Thumbs.db
 # Telegram bot specific
 config_local.py
 
+# Data files (PDFs, processed files - keep local only)
+data/source/*
+data/processed/*
+!data/source/README.md
+!data/processed/README.md
+
 # Temporary files
 tmp/
 temp/

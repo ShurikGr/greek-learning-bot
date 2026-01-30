@@ -3,7 +3,16 @@
     "allow": [
       "Skill(superpowers:brainstorming)",
       "Bash(mkdir:*)",
-      "Bash(git init:*)"
+      "Bash(git init:*)",
+      "Bash(git log:*)",
+      "Bash(git commit --amend -m \"$(cat <<''EOF''\nInitial commit: Greek Learning Bot design document\n\nAdd comprehensive design document with:\n- Full system architecture and database schema\n- Detailed implementation plan (8 phases, 19-27 hours)\n- Quiz system with adaptive learning\n- Group tasks with topic support\n- Admin functions with whitelist\n- Import/export functionality (Excel/CSV/JSON)\n\nNext steps: Begin Phase 1 implementation\nEOF\n)\")",
+      "Bash(cat:*)",
+      "Bash(gh:*)",
+      "Bash(brew install:*)",
+      "Bash(git push:*)",
+      "Skill(superpowers:writing-plans)",
+      "Bash(git add:*)",
+      "Bash(git commit:*)"
     ],
     "deny": [],
     "ask": []
