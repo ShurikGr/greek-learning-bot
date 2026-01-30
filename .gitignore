@@ -63,6 +63,9 @@ data/processed/*
 !data/source/README.md
 !data/processed/README.md
 
+# Implementation guide (personal, keep local only)
+docs/IMPLEMENTATION_GUIDE.md
+
 # Temporary files
 tmp/
 temp/
